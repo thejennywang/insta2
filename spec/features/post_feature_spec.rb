@@ -25,9 +25,19 @@ describe 'posts' do
       click_link 'New post'
       fill_in 'Title', with: 'A brand new post'
       click_button 'Create post'
-
+      
       expect(page).to have_content 'A brand new post'
       expect(current_path).to eq '/posts'
+    end
+
+    it 'can attach an image to a post'do
+      visit '/posts' 
+      click_link 'New post'
+      fill_in 'Title', with: 'A brand new post'
+      attach_file 'Picture', Rails.root.join('spec/images/sf1.jpg')
+      click_button 'Create post'
+
+      expect(page).to have_css 'img.uploaded-pic'
     end
   end
 end
